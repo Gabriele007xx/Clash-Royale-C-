@@ -1,14 +1,20 @@
 #pragma once
 #include "World.h"
 #include "Player.h"
+#include "MainMenuState.h"
 class Game
 {
 private:
 	World world;
-	sf::RenderWindow* window = nullptr;
+	sf::RenderWindow* window;
 	sf::Event evento;
-	Player player;
-	
+	sf::Clock dtclock;
+	float dt;
+	std::stack<State*> stati;
+	std::vector<sf::VideoMode> VideoMds;
+	std::map<std::string, int> supportedkeys;
+	sf::ContextSettings ws;
+	bool fullscreen = false;
 public:
 	Game();
 	virtual ~Game();
@@ -16,7 +22,12 @@ public:
 	void update();
 	void render();
 	void init();
+	void initWin();
+	void initKeys();
+	void initState();
 	void pollEvents();
-	Player getPlayer();
+	void updateDt();
+	void endApplication();
+	void initvar();
 };
 

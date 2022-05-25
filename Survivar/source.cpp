@@ -3,10 +3,10 @@
 #include <vector>
 int main()
 {
-	Game game;
-	game.init();
+	Game game = Game();
 	while (game.running())
 	{
+		game.updateDt();
 		game.pollEvents();
 		game.update();
 		game.render();

@@ -28,6 +28,12 @@
     <Filter Include="File di origine\World\Entity\Player">
       <UniqueIdentifier>{f931383a-145a-4c06-9793-6bb4745cc600}</UniqueIdentifier>
     </Filter>
+    <Filter Include="File di origine\Client">
+      <UniqueIdentifier>{2993a71b-c0b3-42f3-9005-63a3f199cfd7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="File di origine\Client\UserI">
+      <UniqueIdentifier>{597221ff-1e57-4852-b321-684cec7fb5b3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source.cpp">
@@ -45,6 +51,33 @@
     <ClCompile Include="Player.cpp">
       <Filter>File di origine\World\Entity\Player</Filter>
     </ClCompile>
+    <ClCompile Include="State.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="GameState.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity.cpp">
+      <Filter>File di origine\World\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="MainMenuState.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="Button.cpp">
+      <Filter>File di origine\Client\UserI</Filter>
+    </ClCompile>
+    <ClCompile Include="MoveCompoment.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimComponent.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="Troop.cpp">
+      <Filter>File di origine\World\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="Giant.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -57,6 +90,33 @@
       <Filter>File di intestazione</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="State.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="GameState.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="MainMenuState.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="Button.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="MoveCompoment.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimComponent.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="Troop.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="Giant.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,29 +1,56 @@
 #include "Game.h"
 Game::Game()
 {
-
+	init();
 }
 
 Game::~Game()
 {
 	delete this->window;
+	while (!this->stati.empty())
+	{
+		delete this->stati.top();
+	}
 }
 void Game::update()
 {
+	this->pollEvents();
+	if (!this->stati.empty())
+	{
+		this->stati.top()->update(this->dt);
+		if (this->stati.top()->getQuit())
+		{
+			this->stati.top()->endState();
+			delete this->stati.top();
+			this->stati.pop();
+		}
+	}
+	else
+	{
+		this->window->close();
+	}
 
 }
 void Game::render()
 {
 	this->window->clear();
-	this->window->draw(world.getSprite());
-	this->window->draw(player.getSprite());
+	if (!this->stati.empty())
+	{
+		this->stati.top()->render();
+	}
+	//this->window->draw(world.getSprite());
+	//this->window->draw(player.getSprite());
 	this->window->display();
 }
 void Game::init()
 {
-	world.init("Assets/graphics/bg.png");
-	player.init("Assets/graphics/Player_0.png");
-	this->window = new sf::RenderWindow(sf::VideoMode(1000, 696), "Survivar", sf::Style::Default);
+	//Init basic objects
+	//init window
+	initWin();
+	//init keybind
+	initKeys();
+	//init state
+	initState();
 }
 const bool Game::running() const
 {
@@ -35,21 +62,83 @@ void Game::pollEvents()
 	{
 		switch (this->evento.type)
 		{
-			case sf::Event::Closed:
-				this->window->close();
-				break;
-			case sf::Event::KeyPressed:
-				if (this->evento.key.code == sf::Keyboard::Escape)
-				{
-					this->window->close();
-				}
-				break;
+		case sf::Event::Closed:
+			this->window->close();
+			break;
 		}
 	}
 }
-
-Player Game::getPlayer()
+void Game::initKeys()
 {
-	return this->player;
+	std::ifstream i("Config/keybind.ini");
+	if (i.is_open())
+	{
+		std::string key = "";
+		int val = 0;
+		while (i >> key >> val)
+		{
+			this->supportedkeys[key] = val;
+		}
+	}
+	i.close();
+}
+
+void Game::initWin()
+{
+	std::fstream ifs("Config/window.ini");
+	std::string title = "Null";
+	sf::VideoMode window_bounds = sf::VideoMode::getDesktopMode();
+	unsigned framerate_limit = 60;
+	bool vs = false;
+	this->VideoMds = sf::VideoMode::getFullscreenModes();
+	bool fullscreen = false;
+	unsigned antialiasing_power = 0;
+	if (ifs.is_open())
+	{
+		std::getline(ifs, title);
+		ifs >> window_bounds.width >> window_bounds.height;
+		ifs >> fullscreen;
+		ifs >> framerate_limit;
+		ifs >> vs;
+		ifs >> antialiasing_power;
+	}
+	ifs.close();
+
+	this->fullscreen = fullscreen;
+	this->ws.antialiasingLevel = antialiasing_power;
+	
+	if(fullscreen)
+	{
+		this->window = new sf::RenderWindow(window_bounds, title, sf::Style::Fullscreen, this->ws);
+	}
+	else
+	{
+		this->window = new sf::RenderWindow(window_bounds, title, sf::Style::Default, this->ws);
+	}
+	
+	this->window->setFramerateLimit(framerate_limit);
+	this->window->setVerticalSyncEnabled(vs);
+}
+
+void Game::updateDt()
+{
+	this->dt = this->dtclock.restart().asSeconds();
+}
+
+void Game::endApplication()
+{
+
+}
+
+void Game::initState()
+{
+	this->stati.push(new MainMenuState(this->window, &this->supportedkeys, &this->stati));
+}
+
+void Game::initvar()
+{
+	this->window = NULL;
+	this->dt = 0;
+	fullscreen = false;
 }
 

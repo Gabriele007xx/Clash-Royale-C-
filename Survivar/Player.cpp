@@ -1,8 +1,15 @@
 #include "Player.h"
 
-float Player::getSpeed()
+Player::Player(float x,float y,sf::Texture& texture)
 {
-    return this->Speed;
+    this->initVaria();
+    this->initComp();
+    this->setTex(texture);
+    this->setPos(x, y);
+}
+
+Player::~Player()
+{
 }
 
 int Player::getCurrentHealth()
@@ -15,13 +22,13 @@ int Player::getMaxHealth()
     return this->MAX_HEALTH;
 }
 
-void Player::init(std::string texture_location)
+void Player::initVaria()
 {
-    this->player_t.loadFromFile(texture_location);
-    spr_p.setTexture(player_t);
 }
 
-sf::Sprite Player::getSprite()
+void Player::initComp()
 {
-    return this->spr_p;
+    this->CreateMoveC(100.f,5.f,3.f);
 }
+
+
